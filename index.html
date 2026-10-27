@@ -56,15 +56,13 @@ h1 em { font-weight: 400; color: var(--rose); }
 .intro-aside p { font: italic 16px/1.7 var(--serif); color: #a46684; transform: rotate(-4deg); }
 .journal { border: 1px solid #e8cbd8; border-radius: 16px; background: #fffcfd; overflow: hidden; box-shadow: 0 12px 38px #9f466c0a; }
 .calendar-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 21px 24px; border-bottom: 1px solid var(--line); gap: 20px; background: linear-gradient(110deg, #fff1f6, #fcf5fb); }
-.date-nav, .toolbar-right { display: flex; align-items: center; gap: 14px; }
+.date-nav { display: flex; align-items: center; gap: 14px; }
+.days-together { width: fit-content; margin: 19px 0 0; padding: 8px 15px; border: 1px solid #edccdc; border-radius: 30px; background: #fffafd; display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--rose); white-space: nowrap; }
+.days-together > span { font-size: 23px; }
+.days-together strong { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .date-nav h2 { font: 500 24px var(--serif); margin: 0; min-width: 174px; text-align: center; }
 .icon-button { display: grid; place-items: center; width: 29px; height: 32px; background: transparent; border-radius: 6px; color: var(--rose); }
 .icon-button:hover:not(:disabled) { background: var(--blush); }
-.jump-label { display: flex; align-items: center; gap: 9px; font-size: 10px; color: var(--muted); }
-.jump-label input { max-width: 120px; border: 0; background: transparent; color: var(--ink); font-size: 11px; padding: 7px 0; }
-.view-switch { display: flex; padding: 4px; background: #f4dfeb; border-radius: 8px; gap: 3px; }
-.view-switch button { padding: 7px 17px; background: transparent; font-size: 11px; border-radius: 5px; color: #8f6177; }
-.view-switch button[aria-pressed=true] { background: #fff; color: var(--rose); box-shadow: 0 1px 5px #a2507017; }
 .month-layout { display: block; }
 .calendar-area { padding: 0 22px; }
 .weekday-row { height: 46px; display: grid; grid-template-columns: repeat(7, 1fr); align-items: center; text-align: center; font-size: 10px; letter-spacing: 1.4px; color: #927185; }
@@ -72,8 +70,8 @@ h1 em { font-weight: 400; color: var(--rose); }
 .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
 .calendar-spacer { min-width: 0; }
 .date-cell { position: relative; min-width: 0; aspect-ratio: 1.45; background: #fff; border: 1px solid #e7ccd8; border-radius: 8px; text-align: left; padding: 10px; overflow: hidden; transition: transform .16s, box-shadow .16s, border-color .16s; }
+.date-cell:disabled { opacity: 1; cursor: default; }
 .date-cell:hover:not(:disabled) { z-index: 1; border-color: #d58aa7; box-shadow: 0 4px 14px #b3436b1a; transform: translateY(-2px); }
-.date-cell.selected { outline: 2px solid var(--rose); outline-offset: 1px; }
 .date-cell .day-number { position: absolute; top: 10px; left: 11px; font-size: 12px; z-index: 2; }
 .date-cell.is-today .day-number { color: var(--rose); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .date-cell.has-photo { border-color: transparent; background: #eed6e1; padding: 0; }
@@ -114,11 +112,6 @@ h1 em { font-weight: 400; color: var(--rose); }
 .day-details .memory-place { font-size: 13px; }
 .day-details .memory-notes { font-size: 15px; line-height: 1.9; }
 .back-month { display: inline-flex; align-items: center; gap: 8px; background: transparent; padding: 0 0 8px; color: var(--rose); font-size: 11px; border-bottom: 1px solid #d99bb5; margin-top: 15px; }
-.empty-heart { display: block; font: 48px var(--serif); color: #cc87a5; margin-bottom: 20px; }
-.empty-day { padding: 70px 24px; text-align: center; }
-.empty-day .memory-date { margin-top: 15px; }
-.empty-day .memory-title { font-size: 34px; }
-.empty-day .memory-notes { font-size: 14px; }
 .image-unavailable { display: grid; place-items: center; min-height: 180px; padding: 20px; color: var(--muted); font-size: 12px; }
 footer { display: flex; justify-content: space-between; padding: 26px 0 35px; font-size: 8px; letter-spacing: 1.5px; color: #a47d91; }
 .footer-heart { color: var(--rose); margin: 0 9px; }
@@ -131,8 +124,6 @@ dialog > p { font-size: 12px; color: var(--muted); }
 @media (max-width: 1150px) {
   main, .site-header { padding-left: 30px; padding-right: 30px; }
   .calendar-area { padding: 0 18px; }
-  .toolbar-right { gap: 10px; }
-  .jump-label { font-size: 0; gap: 0; }
   .intro-aside { margin-right: 0; gap: 13px; }
   .intro-aside p { font-size: 14px; }
   .date-nav { gap: 8px; }
@@ -143,7 +134,6 @@ dialog > p { font-size: 12px; color: var(--muted); }
   .intro-aside .flower { width: 85px; }
   .date-cell { aspect-ratio: 1.12; }
   .calendar-toolbar { padding: 17px; }
-  .jump-label { display: none; }
   .intro { padding: 35px 0; }
   .calendar-area { padding: 0 17px; }
   .day-layout { gap: 24px; padding: 24px; grid-template-columns: 1.25fr 1fr; }
@@ -167,8 +157,6 @@ dialog > p { font-size: 12px; color: var(--muted); }
   .calendar-toolbar { padding: 14px 10px; gap: 8px; flex-wrap: wrap; }
   .date-nav { gap: 1px; flex: 1; }
   .date-nav h2 { font-size: 19px; min-width: 137px; }
-  .view-switch { padding: 3px; gap: 0; }
-  .view-switch button { font-size: 10px; padding: 7px 10px; }
   .calendar-area { padding: 0 8px; }
   .weekday-row { font-size: 8px; height: 37px; letter-spacing: .5px; }
   .calendar-grid { gap: 4px; }
@@ -203,16 +191,15 @@ dialog > p { font-size: 12px; color: var(--muted); }
   </header>
   <main>
     <section class="intro">
-      <div><p class="eyebrow"><span></span> THE DAYS, THE PLACES, THE TWO OF US</p><h1>Collecting memories<br><em>together</em></h1><p class="intro-copy" id="subtitle">One photo. A little story. A moment to come back to.</p></div>
+      <div><p class="eyebrow"><span></span> THE DAYS, THE PLACES, THE TWO OF US</p><h1>Collecting memories<br><em>together</em></h1><p class="intro-copy" id="subtitle">One photo. A little story. A moment to come back to.</p><p class="days-together" aria-live="polite"><span aria-hidden="true">♡</span> <strong id="days-together-count">—</strong> days together</p></div>
       <div class="intro-aside"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="50" cy="28" rx="10" ry="19"/><ellipse cx="50" cy="72" rx="10" ry="19"/><ellipse cx="28" cy="50" rx="19" ry="10"/><ellipse cx="72" cy="50" rx="19" ry="10"/><ellipse cx="34" cy="34" rx="10" ry="19" transform="rotate(-45 34 34)"/><ellipse cx="66" cy="66" rx="10" ry="19" transform="rotate(-45 66 66)"/><ellipse cx="66" cy="34" rx="10" ry="19" transform="rotate(45 66 34)"/><ellipse cx="34" cy="66" rx="10" ry="19" transform="rotate(45 34 66)"/><circle cx="50" cy="50" r="10" fill="#fff7fa"/></g></svg><p>for all the little things<br>that turn into everything.</p></div>
     </section>
     <section class="journal" aria-label="Our photo calendar">
       <div class="calendar-toolbar">
         <div class="date-nav"><button class="icon-button" id="previous" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><h2 id="period-title">Our calendar</h2><button class="icon-button" id="next" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div>
-        <div class="toolbar-right"><label class="jump-label" for="jump-date">Go to date <input type="date" id="jump-date" min="0001-01-01" max="9999-12-31" aria-label="Go to date"></label><div class="view-switch" aria-label="Calendar view"><button id="month-button" aria-pressed="true">Month</button><button id="day-button" aria-pressed="false">Day</button></div></div>
       </div>
       <div id="status" class="status" role="status">Opening our little collection…</div>
-      <div id="month-view" hidden><div class="month-layout"><div class="calendar-area"><div class="weekday-row" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div id="calendar-grid" class="calendar-grid" aria-label="Days of the month"></div><div class="calendar-bottom"><span><i class="legend-dot"></i> A moment we kept</span><span>Pick a day. Stay a little.</span></div></div></div></div>
+      <div id="month-view" hidden><div class="month-layout"><div class="calendar-area"><div class="weekday-row" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div id="calendar-grid" class="calendar-grid" aria-label="Days of the month"></div><div class="calendar-bottom"><span><i class="legend-dot"></i> A moment we kept</span><span>Pick a photo. Stay a little.</span></div></div></div></div>
       <div id="day-view" hidden></div>
       <div class="journal-bottom"><span id="month-summary"></span><span class="bottom-note">Made of moments, kept with love. <span>♡</span></span></div>
     </section>
@@ -224,7 +211,7 @@ dialog > p { font-size: 12px; color: var(--muted); }
 // A classic script can explain file:// restrictions even when modules cannot run.
 (() => {
   const status = document.getElementById('status');
-  const controls = document.querySelectorAll('.calendar-toolbar button, .calendar-toolbar input');
+  const controls = document.querySelectorAll('.calendar-toolbar button');
   controls.forEach(control => { control.disabled = true; });
 
   if (location.protocol === 'file:') {
@@ -278,6 +265,16 @@ function monthDays(date) {
   const offset = (first.getDay() + 6) % 7;
   const count = Math.ceil((offset + last.getDate()) / 7) * 7;
   return Array.from({ length: count }, (_, i) => shiftDate(first, i - offset));
+}
+
+// Count calendar days inclusively: our first day is day one, regardless of DST.
+function daysTogether(start, end) {
+  const ordinal = date => {
+    const utc = new Date(0);
+    utc.setUTCFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+    return utc.getTime() / 86400000;
+  };
+  return Math.max(0, Math.round(ordinal(end) - ordinal(start)) + 1);
 }
 
 function calendarRange(data, today = new Date()) {
@@ -416,11 +413,11 @@ function renderMonth() {
     }
     const key = dateKey(date);
     const memory = memories.get(key);
-    const cell = element('button', `date-cell${memory ? ' has-photo' : ''}${key === dateKey(selected) ? ' selected' : ''}${key === dateKey(today) ? ' is-today' : ''}`);
+    const cell = element('button', `date-cell${memory ? ' has-photo' : ''}${key === dateKey(today) ? ' is-today' : ''}`);
     cell.type = 'button';
     cell.dataset.date = key;
-    cell.setAttribute('aria-label', `${fullDateFormat.format(date)}${memory ? `: ${memory.title}, ${memory.place}. Open day.` : ': No memory yet. Open day.'}`);
-    cell.setAttribute('aria-pressed', String(key === dateKey(selected)));
+    cell.setAttribute('aria-label', `${fullDateFormat.format(date)}${memory ? `: ${memory.title}, ${memory.place}. Open day.` : ': No memory yet.'}`);
+    cell.disabled = !memory;
     if (key === dateKey(today)) cell.setAttribute('aria-current', 'date');
     if (!parseDate(key) || date < range.start || date > range.end) {
       cell.disabled = true;
@@ -437,20 +434,7 @@ function renderMonth() {
       cell.append(img, element('span', 'cell-place', memory.place), element('span', 'cell-heart', '♡'));
     }
     cell.append(element('span', 'day-number', String(date.getDate())));
-    cell.addEventListener('click', () => chooseDate(date, 'day'));
-    // Keep the day-view selection in sync when tabbing through the month.
-    cell.addEventListener('focus', () => {
-      if (!cell.disabled && key !== dateKey(selected)) {
-        selected = date;
-        grid.querySelectorAll('.date-cell').forEach(node => {
-          const active = node.dataset.date === key;
-          node.classList.toggle('selected', active);
-          node.setAttribute('aria-pressed', String(active));
-        });
-        $('jump-date').value = key;
-        setRoute();
-      }
-    });
+    if (memory && !cell.disabled) cell.addEventListener('click', () => chooseDate(date, 'day'));
     grid.append(cell);
   }
 }
@@ -461,12 +445,7 @@ function renderDay() {
   const memory = memories.get(dateKey(selected));
   const back = element('button', 'back-month', '← Back to our month');
   back.addEventListener('click', () => chooseDate(selected, 'month'));
-  if (!memory) {
-    const empty = element('div', 'empty-day');
-    empty.append(element('span', 'empty-heart', '♡'), element('p', 'memory-date', fullDateFormat.format(selected)), element('h3', 'memory-title', 'A story still to come.'), element('p', 'memory-notes', 'No photo for this day yet. There’s always room for another little memory.'), back);
-    day.append(empty);
-    return;
-  }
+  if (!memory) return;
   const layout = element('div', 'day-layout');
   const imageWrap = element('div', 'day-image-wrap');
   imageWrap.append(photo(memory));
@@ -478,16 +457,15 @@ function renderDay() {
 
 function render() {
   if (!ready) return;
+  // Old links to empty days return to their month instead of an empty detail page.
+  if (view === 'day' && !memories.has(dateKey(selected))) view = 'month';
   $('month-view').hidden = view !== 'month';
   $('day-view').hidden = view !== 'day';
-  $('month-button').setAttribute('aria-pressed', String(view === 'month'));
-  $('day-button').setAttribute('aria-pressed', String(view === 'day'));
   $('period-title').textContent = view === 'month' ? monthFormat.format(selected) : new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(selected);
-  $('previous').setAttribute('aria-label', `Previous ${view}`);
-  $('next').setAttribute('aria-label', `Next ${view}`);
-  $('previous').disabled = dateKey(navigateDate(selected, -1, view, range)) === dateKey(selected);
-  $('next').disabled = dateKey(navigateDate(selected, 1, view, range)) === dateKey(selected);
-  $('jump-date').value = dateKey(selected);
+  $('previous').hidden = view !== 'month';
+  $('next').hidden = view !== 'month';
+  $('previous').disabled = view !== 'month' || dateKey(navigateDate(selected, -1, 'month', range)) === dateKey(selected);
+  $('next').disabled = view !== 'month' || dateKey(navigateDate(selected, 1, 'month', range)) === dateKey(selected);
   const prefix = dateKey(selected).slice(0, 7);
   const count = data.memories.filter(memory => memory.date.startsWith(prefix)).length;
   const summary = $('month-summary');
@@ -500,23 +478,22 @@ async function load() {
   $('status').hidden = false;
   $('status').className = 'status';
   $('status').textContent = 'Opening our little collection…';
-  document.querySelectorAll('.calendar-toolbar button, .calendar-toolbar input').forEach(node => node.disabled = true);
+  document.querySelectorAll('.calendar-toolbar button').forEach(node => node.disabled = true);
   try {
     const response = await fetch('./calander-data.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Could not load calander-data.json (HTTP ${response.status}).`);
     data = validateData(await response.json());
     range = calendarRange(data, today);
+    $('days-together-count').textContent = String(daysTogether(range.start, today));
     memories = new Map(data.memories.map(memory => [memory.date, memory]));
     $('couple-names').textContent = data.coupleNames || 'You & me';
     if (data.subtitle) $('subtitle').textContent = data.subtitle;
     $('footer-count').textContent = `${data.memories.length} little ${data.memories.length === 1 ? 'memory' : 'memories'}. One shared story.`;
     if (!readRoute()) selected = parseDate(data.startDate) || new Date(today);
     selected = clampDate(selected, range);
-    $('jump-date').min = dateKey(range.start);
-    $('jump-date').max = dateKey(range.end);
     ready = true;
     $('status').hidden = true;
-    document.querySelectorAll('.calendar-toolbar button, .calendar-toolbar input').forEach(node => node.disabled = false);
+    document.querySelectorAll('.calendar-toolbar button').forEach(node => node.disabled = false);
     render();
   } catch (error) {
     ready = false;
@@ -528,14 +505,8 @@ async function load() {
   }
 }
 
-$('previous').addEventListener('click', () => chooseDate(navigateDate(selected, -1, view, range)));
-$('next').addEventListener('click', () => chooseDate(navigateDate(selected, 1, view, range)));
-$('month-button').addEventListener('click', () => chooseDate(selected, 'month'));
-$('day-button').addEventListener('click', () => chooseDate(selected, 'day'));
-$('jump-date').addEventListener('change', event => {
-  const date = parseDate(event.target.value);
-  if (date) chooseDate(date);
-});
+$('previous').addEventListener('click', () => { if (view === 'month') chooseDate(navigateDate(selected, -1, 'month', range)); });
+$('next').addEventListener('click', () => { if (view === 'month') chooseDate(navigateDate(selected, 1, 'month', range)); });
 $('close-photo').addEventListener('click', () => $('photo-dialog').close());
 $('photo-dialog').addEventListener('click', event => {
   if (event.target === $('photo-dialog')) {
@@ -545,7 +516,7 @@ $('photo-dialog').addEventListener('click', event => {
 });
 window.addEventListener('hashchange', () => { if (ready && readRoute()) render(); });
 window.addEventListener('keydown', event => {
-  if (!ready || $('photo-dialog').open || event.ctrlKey || event.altKey || event.metaKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+  if (!ready || view !== 'month' || $('photo-dialog').open || event.ctrlKey || event.altKey || event.metaKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
   if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
     event.preventDefault();
     chooseDate(navigateDate(selected, event.key === 'ArrowLeft' ? -1 : 1, view, range));
