@@ -1,0 +1,256 @@
+{
+  "coupleNames": "You & me",
+  "subtitle": "One photo. A little story. A moment to come back to.",
+  "memories": [
+    {
+      "date": "2026-03-27",
+      "image": "images/flowers.jpg",
+      "title": "The beginning of our little story",
+      "place": "Our favorite spot",
+      "notes": "A first page for all the days we want to remember.",
+      "alt": "A bunch of flowers in soft colors"
+    },
+    {
+      "date": "2026-03-29",
+      "image": "images/coffee.jpg",
+      "title": "Coffee and a little courage",
+      "place": "The corner café",
+      "notes": "One conversation that turned into a whole afternoon.",
+      "alt": "A warm cup of coffee"
+    },
+    {
+      "date": "2026-04-04",
+      "image": "images/forest.jpg",
+      "title": "The scenic route",
+      "place": "The neighborhood park",
+      "notes": "No plans, just a long walk together.",
+      "alt": "Sunlight filtering through green trees"
+    },
+    {
+      "date": "2026-04-14",
+      "image": "images/flowers.jpg",
+      "title": "Something to brighten your day",
+      "place": "The flower market",
+      "notes": "",
+      "alt": "A bunch of flowers in soft colors"
+    },
+    {
+      "date": "2026-04-25",
+      "image": "images/coast.jpg",
+      "title": "A weekend by the water",
+      "place": "The seaside",
+      "notes": "We stayed until the sky changed colors.",
+      "alt": "A colorful village beside the sea"
+    },
+    {
+      "date": "2026-05-02",
+      "image": "images/coffee.jpg",
+      "title": "Saturday, slowly",
+      "place": "Our kitchen",
+      "notes": "Breakfast ran well into lunchtime.",
+      "alt": "A warm cup of coffee"
+    },
+    {
+      "date": "2026-05-16",
+      "image": "images/mountains.jpg",
+      "title": "Worth the early alarm",
+      "place": "The hilltop lookout",
+      "notes": "Packed a flask and watched the world wake up.",
+      "alt": "Mountains beneath an open sky"
+    },
+    {
+      "date": "2026-05-27",
+      "image": "images/lakeside.jpg",
+      "title": "Two months of little things",
+      "place": "By the lake",
+      "notes": "A picnic, a quiet afternoon, and nowhere to rush.",
+      "alt": "A peaceful lake beneath green mountains"
+    },
+    {
+      "date": "2026-06-07",
+      "image": "images/forest.jpg",
+      "title": "Finding a little shade",
+      "place": "The garden trail",
+      "notes": "",
+      "alt": "Sunlight filtering through green trees"
+    },
+    {
+      "date": "2026-06-19",
+      "image": "images/coffee.jpg",
+      "title": "Rainy day company",
+      "place": "Our usual café",
+      "notes": "Waiting out the rain with one more cup.",
+      "alt": "A warm cup of coffee"
+    },
+    {
+      "date": "2026-06-27",
+      "image": "images/flowers.jpg",
+      "title": "A small celebration",
+      "place": "Home, with you",
+      "notes": "Three months of filling ordinary days with good memories.",
+      "alt": "A bunch of flowers in soft colors"
+    },
+    {
+      "date": "2026-07-05",
+      "image": "images/coast.jpg",
+      "title": "A little escape",
+      "place": "The coastal road",
+      "notes": "Windows down, our playlist on repeat.",
+      "alt": "A colorful village beside the sea"
+    },
+    {
+      "date": "2026-07-18",
+      "image": "images/lakeside.jpg",
+      "title": "An afternoon without a clock",
+      "place": "The lakeside",
+      "notes": "We forgot to check the time. That was the best part.",
+      "alt": "A peaceful lake beneath green mountains"
+    },
+    {
+      "date": "2026-07-27",
+      "image": "images/coffee.jpg",
+      "title": "Just the two of us",
+      "place": "Our kitchen",
+      "notes": "",
+      "alt": "A warm cup of coffee"
+    },
+    {
+      "date": "2026-08-08",
+      "image": "images/mountains.jpg",
+      "title": "Up in the clouds",
+      "place": "The mountain trail",
+      "notes": "A long walk and a view we will remember.",
+      "alt": "Mountains beneath an open sky"
+    },
+    {
+      "date": "2026-08-15",
+      "image": "images/flowers.jpg",
+      "title": "A colorful kind of day",
+      "place": "The weekend market",
+      "notes": "Came for a walk. Left with flowers.",
+      "alt": "A bunch of flowers in soft colors"
+    },
+    {
+      "date": "2026-08-29",
+      "image": "images/forest.jpg",
+      "title": "A quieter weekend",
+      "place": "The park",
+      "notes": "Nothing on the agenda except a little time together.",
+      "alt": "Sunlight filtering through green trees"
+    },
+    {
+      "date": "2026-09-06",
+      "image": "images/coffee.jpg",
+      "title": "A familiar table",
+      "place": "The corner café",
+      "notes": "Our usual order and a brand-new story.",
+      "alt": "A warm cup of coffee"
+    },
+    {
+      "date": "2026-09-19",
+      "image": "images/lakeside.jpg",
+      "title": "The last light",
+      "place": "By the lake",
+      "notes": "",
+      "alt": "A peaceful lake beneath green mountains"
+    },
+    {
+      "date": "2026-09-27",
+      "image": "images/coast.jpg",
+      "title": "One more summer evening",
+      "place": "By the sea",
+      "notes": "A sample memory from last month. Replace these stories and photos with your own.",
+      "alt": "Cliffs and houses beside a blue sea"
+    },
+    {
+      "date": "2026-10-02",
+      "image": "images/coffee.jpg",
+      "title": "Our usual, please",
+      "place": "The corner café",
+      "notes": "Two coffees, one pastry, and absolutely nowhere we needed to be.",
+      "alt": "A warm cup of coffee"
+    },
+    {
+      "date": "2026-10-04",
+      "image": "images/coast.jpg",
+      "title": "The long way home",
+      "place": "Coastal road",
+      "notes": "We missed the turn. It turned out to be the best part of the day.",
+      "alt": "A colorful seaside village overlooking the water"
+    },
+    {
+      "date": "2026-10-07",
+      "image": "images/forest.jpg",
+      "title": "A little lost, together",
+      "place": "The forest trail",
+      "notes": "",
+      "alt": "Sunlight filtering through a green forest"
+    },
+    {
+      "date": "2026-10-10",
+      "image": "images/flowers.jpg",
+      "title": "Just because",
+      "place": "Sunday flower market",
+      "notes": "Flowers for no occasion. Those are my favorite kind.",
+      "alt": "A bunch of flowers in soft colors"
+    },
+    {
+      "date": "2026-10-12",
+      "image": "images/coffee.jpg",
+      "title": "Slow mornings",
+      "place": "Our kitchen",
+      "notes": "The rain could wait. So could everything else.",
+      "alt": "Coffee for a slow morning"
+    },
+    {
+      "date": "2026-10-15",
+      "image": "images/mountains.jpg",
+      "title": "Above the clouds",
+      "place": "Mountain lookout",
+      "notes": "A very early alarm. A very good idea.",
+      "alt": "Mountains under an open sky"
+    },
+    {
+      "date": "2026-10-18",
+      "image": "images/lakeside.jpg",
+      "title": "Nowhere else to be",
+      "place": "Lake Como, Italy",
+      "notes": "We took the long way around the lake. Stopped for a coffee. Talked about everything and nothing.\n\nA little reminder that my favorite place is wherever you are.",
+      "alt": "A peaceful lakeside village beneath green mountains"
+    },
+    {
+      "date": "2026-10-21",
+      "image": "images/forest.jpg",
+      "title": "An afternoon in green",
+      "place": "Our favorite park",
+      "notes": "",
+      "alt": "A quiet green woodland"
+    },
+    {
+      "date": "2026-10-24",
+      "image": "images/coast.jpg",
+      "title": "Salt in the air",
+      "place": "The seaside",
+      "notes": "One last look at the water before heading home.",
+      "alt": "Blue water beside a coastal village"
+    },
+    {
+      "date": "2026-10-26",
+      "image": "images/flowers.jpg",
+      "title": "The little things",
+      "place": "Home, with you",
+      "notes": "Nothing special on the calendar. Everything special about the day.",
+      "alt": "Flowers to brighten a day at home"
+    },
+    {
+      "date": "2026-10-28",
+      "image": "images/coffee.jpg",
+      "title": "Another day to keep",
+      "place": "Home, with you",
+      "notes": "A sample memory for today. Replace it with your own photo and story.",
+      "alt": "A warm cup of coffee"
+    }
+  ],
+  "rangeStart": "2026-03-27",
+  "rangeEnd": "today"
+}

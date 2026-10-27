@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7fa">
+  <meta name="description" content="A little calendar for the moments we want to keep.">
+  <title>GG Calander — Collecting memories together</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="bootstrap.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="GG Calander, home"><span class="brand-icon">♡</span> GG Calander</a>
+    <div class="header-note">A SMALL COLLECTION OF US</div>
+    <span class="couple-pill"><span class="tiny-heart">♥</span> <span id="couple-names">You & me</span></span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow"><span></span> THE DAYS, THE PLACES, THE TWO OF US</p><h1>Collecting memories<br><em>together</em></h1><p class="intro-copy" id="subtitle">One photo. A little story. A moment to come back to.</p></div>
+      <div class="intro-aside"><svg class="flower" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="50" cy="28" rx="10" ry="19"/><ellipse cx="50" cy="72" rx="10" ry="19"/><ellipse cx="28" cy="50" rx="19" ry="10"/><ellipse cx="72" cy="50" rx="19" ry="10"/><ellipse cx="34" cy="34" rx="10" ry="19" transform="rotate(-45 34 34)"/><ellipse cx="66" cy="66" rx="10" ry="19" transform="rotate(-45 66 66)"/><ellipse cx="66" cy="34" rx="10" ry="19" transform="rotate(45 66 34)"/><ellipse cx="34" cy="66" rx="10" ry="19" transform="rotate(45 34 66)"/><circle cx="50" cy="50" r="10" fill="#fff7fa"/></g></svg><p>for all the little things<br>that turn into everything.</p></div>
+    </section>
+    <section class="journal" aria-label="Our photo calendar">
+      <div class="calendar-toolbar">
+        <div class="date-nav"><button class="icon-button" id="previous" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><h2 id="period-title">Our calendar</h2><button class="icon-button" id="next" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div>
+        <div class="toolbar-right"><label class="jump-label" for="jump-date">Go to date <input type="date" id="jump-date" min="0001-01-01" max="9999-12-31" aria-label="Go to date"></label><div class="view-switch" aria-label="Calendar view"><button id="month-button" aria-pressed="true">Month</button><button id="day-button" aria-pressed="false">Day</button></div></div>
+      </div>
+      <div id="status" class="status" role="status">Opening our little collection…</div>
+      <div id="month-view" hidden><div class="month-layout"><div class="calendar-area"><div class="weekday-row" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div id="calendar-grid" class="calendar-grid" aria-label="Days of the month"></div><div class="calendar-bottom"><span><i class="legend-dot"></i> A moment we kept</span><span>Pick a day. Stay a little.</span></div></div></div></div>
+      <div id="day-view" hidden></div>
+      <div class="journal-bottom"><span id="month-summary"></span><span class="bottom-note">Made of moments, kept with love. <span>♡</span></span></div>
+    </section>
+    <footer><span>GG CALANDER <span class="footer-heart">♡</span> OUR VERY OWN STORY</span><span id="footer-count">A calendar for two.</span></footer>
+  </main>
+  <dialog id="photo-dialog" aria-label="Full photo"><button id="close-photo" class="close-photo" aria-label="Close photo">✕</button><img id="full-photo" alt=""><p id="full-caption"></p></dialog>
+  <noscript><p class="status">Please enable JavaScript to see the calendar.</p></noscript>
+</body>
+</html>
