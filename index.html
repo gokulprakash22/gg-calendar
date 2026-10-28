@@ -3,7 +3,8 @@
 <!--
 GG Calander: static website, no build or backend required.
 Upload index.html, calander-data.json and images/ to your GitHub Pages root.
-Edit names and memories in calander-data.json; add photos to images/.
+Edit memories in calander-data.json; add photos to images/.
+Names, subtitle and the March 27, 2026 start date are set in this HTML file.
 CSS, calendar logic and favicon are embedded here. Fonts load from Google Fonts,
 with system-font fallbacks. The calendar range ends at the visitor's current date.
 Local preview: python3 -m http.server 4173, then visit http://localhost:4173/.
@@ -277,9 +278,9 @@ function daysTogether(start, end) {
   return Math.max(0, Math.round(ordinal(end) - ordinal(start)) + 1);
 }
 
-function calendarRange(data, today = new Date()) {
-  const start = parseDate(data.rangeStart || '0001-01-01');
-  const end = data.rangeEnd === 'today' ? parseDate(dateKey(today)) : parseDate(data.rangeEnd || '9999-12-31');
+function calendarRange(today = new Date()) {
+  const start = parseDate('2026-03-27');
+  const end = parseDate(dateKey(today));
   if (!start || !end || start > end) throw new Error('The calendar range must have valid dates, with the start on or before the end.');
   return { start, end };
 }
@@ -303,10 +304,6 @@ function safeImagePath(path) {
 
 function validateData(data) {
   if (!data || typeof data !== 'object' || !Array.isArray(data.memories)) throw new Error('The JSON must contain a "memories" array.');
-  if (data.coupleNames !== undefined && typeof data.coupleNames !== 'string') throw new Error('"coupleNames" must be text.');
-  if (data.subtitle !== undefined && typeof data.subtitle !== 'string') throw new Error('"subtitle" must be text.');
-  if (data.startDate !== undefined && !parseDate(data.startDate)) throw new Error('"startDate" must be a valid YYYY-MM-DD date.');
-  calendarRange(data);
   const seen = new Set();
   const memories = data.memories.map((memory, i) => {
     const label = `Memory ${i + 1}`;
@@ -315,12 +312,12 @@ function validateData(data) {
     seen.add(memory.date);
     if (!safeImagePath(memory.image)) throw new Error(`${label}: "image" must be a relative file path or an HTTPS URL.`);
     if (typeof memory.place !== 'string' || !memory.place.trim()) throw new Error(`${label}: add a "place" name.`);
-    for (const field of ['title', 'notes', 'alt']) {
+    for (const field of ['title', 'notes']) {
       if (memory[field] !== undefined && typeof memory[field] !== 'string') throw new Error(`${label}: "${field}" must be text.`);
     }
-    return { ...memory, title: memory.title || memory.place, notes: memory.notes || '', alt: memory.alt || `A memory at ${memory.place}` };
+    return { ...memory, title: memory.title || memory.place, notes: memory.notes || '' };
   }).sort((a, b) => a.date.localeCompare(b.date));
-  return { ...data, memories };
+  return { memories };
 }
 // END CALENDAR CORE
 
@@ -372,7 +369,7 @@ function photo(memory, className = '') {
   button.setAttribute('aria-label', `Enlarge photo: ${memory.title}`);
   const img = element('img');
   img.src = memory.image;
-  img.alt = memory.alt;
+  img.alt = memory.title;
   img.decoding = 'async';
   img.addEventListener('error', () => {
     button.replaceChildren(element('span', 'image-unavailable', 'This photo couldn’t be loaded.'));
@@ -381,7 +378,7 @@ function photo(memory, className = '') {
   button.append(img);
   button.addEventListener('click', () => {
     $('full-photo').src = memory.image;
-    $('full-photo').alt = memory.alt;
+    $('full-photo').alt = memory.title;
     $('full-caption').textContent = `${memory.title} · ${dateFormat.format(parseDate(memory.date))} · ${memory.place}`;
     $('photo-dialog').showModal();
   });
@@ -427,7 +424,7 @@ function renderMonth() {
     if (memory) {
       const img = element('img');
       img.src = memory.image;
-      img.alt = '';
+      img.alt = memory.title;
       img.loading = 'lazy';
       img.decoding = 'async';
       img.addEventListener('error', () => cell.classList.add('image-failed'), { once: true });
@@ -483,13 +480,11 @@ async function load() {
     const response = await fetch('./calander-data.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Could not load calander-data.json (HTTP ${response.status}).`);
     data = validateData(await response.json());
-    range = calendarRange(data, today);
+    range = calendarRange(today);
     $('days-together-count').textContent = String(daysTogether(range.start, today));
     memories = new Map(data.memories.map(memory => [memory.date, memory]));
-    $('couple-names').textContent = data.coupleNames || 'You & me';
-    if (data.subtitle) $('subtitle').textContent = data.subtitle;
     $('footer-count').textContent = `${data.memories.length} little ${data.memories.length === 1 ? 'memory' : 'memories'}. One shared story.`;
-    if (!readRoute()) selected = parseDate(data.startDate) || new Date(today);
+    if (!readRoute()) selected = new Date(today);
     selected = clampDate(selected, range);
     ready = true;
     $('status').hidden = true;
