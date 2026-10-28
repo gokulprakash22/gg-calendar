@@ -4,6 +4,8 @@
 GG Calander: static website, no build or backend required.
 Upload index.html, calander-data.json and images/ to your GitHub Pages root.
 Edit memories in calander-data.json; add photos to images/.
+Each memory may include position for its calendar crop: "50% 50%" (center),
+"50% 25%" (toward the top), or "center top". Full day photos stay uncropped.
 Names, subtitle and the March 27, 2026 start date are set in this HTML file.
 All months and photos are prepared behind a progress screen, then kept in the DOM.
 Photos load directly from their image paths, using normal browser loading.
@@ -208,7 +210,7 @@ dialog > p { font-size: 12px; color: var(--muted); }
     </section>
     <section class="journal" aria-label="Our photo calendar">
       <div class="calendar-toolbar">
-        <div class="date-nav"><button class="icon-button" id="previous" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><h2 id="period-title">Our calendar</h2><button class="icon-button" id="next" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div>
+        <div class="date-nav"><button class="icon-button" id="previous" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><button class="icon-button" id="back-to-month" type="button" aria-label="Back to month calendar" title="Back to month calendar" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg></button><h2 id="period-title">Our calendar</h2><button class="icon-button" id="next" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div>
       </div>
       <div id="status" class="status" role="status">Opening our little collection…</div>
       <div id="month-view" hidden><div class="month-layout"><div class="calendar-area"><div class="weekday-row" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div id="calendar-months" aria-label="Days of the month"></div><div class="calendar-bottom"><span><i class="legend-dot"></i> A moment we kept</span><span>Pick a photo. Stay a little.</span></div></div></div></div>
@@ -324,10 +326,10 @@ function validateData(data) {
     seen.add(memory.date);
     if (!safeImagePath(memory.image)) throw new Error(`${label}: "image" must be a relative file path or an HTTPS URL.`);
     if (typeof memory.place !== 'string' || !memory.place.trim()) throw new Error(`${label}: add a "place" name.`);
-    for (const field of ['title', 'notes']) {
+    for (const field of ['title', 'notes', 'position']) {
       if (memory[field] !== undefined && typeof memory[field] !== 'string') throw new Error(`${label}: "${field}" must be text.`);
     }
-    return { ...memory, title: memory.title || memory.place, notes: memory.notes || '' };
+    return { ...memory, title: memory.title || memory.place, notes: memory.notes || '', position: memory.position?.trim() || '50% 50%' };
   }).sort((a, b) => a.date.localeCompare(b.date));
   return { memories };
 }
@@ -438,6 +440,7 @@ function buildMonth(monthDate, tasks) {
     if (memory) {
       const img = element('img');
       img.alt = memory.title;
+      img.style.objectPosition = memory.position;
       img.loading = 'eager';
       tasks.push(() => preparePhoto(img, memory, cell));
       img.decoding = 'async';
@@ -589,6 +592,8 @@ function render() {
   $('month-view').hidden = view !== 'month';
   $('day-view').hidden = view !== 'day';
   $('period-title').textContent = view === 'month' ? monthFormat.format(selected) : new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(selected);
+  $('back-to-month').hidden = view !== 'day';
+  $('back-to-month').disabled = view !== 'day';
   $('previous').hidden = view !== 'month';
   $('next').hidden = view !== 'month';
   $('previous').disabled = view !== 'month' || dateKey(navigateDate(selected, -1, 'month', range)) === dateKey(selected);
@@ -638,6 +643,7 @@ async function load() {
   }
 }
 
+$('back-to-month').addEventListener('click', () => { if (ready && view === 'day') chooseDate(selected, 'month'); });
 $('previous').addEventListener('click', () => { if (view === 'month') chooseDate(navigateDate(selected, -1, 'month', range)); });
 $('next').addEventListener('click', () => { if (view === 'month') chooseDate(navigateDate(selected, 1, 'month', range)); });
 $('close-photo').addEventListener('click', () => $('photo-dialog').close());
