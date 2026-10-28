@@ -5,7 +5,8 @@ GG Calander: static website, no build or backend required.
 Upload index.html, calander-data.json and images/ to your GitHub Pages root.
 Edit memories in calander-data.json; add photos to images/.
 Names, subtitle and the March 27, 2026 start date are set in this HTML file.
-Photos are cached in the browser after their first load. When replacing a photo,
+All months and photos are prepared behind a progress screen, then kept in the DOM.
+Photos are also cached in the browser after their first load. When replacing a photo,
 use a new filename or add ?v=2 to its image path in JSON to refresh the cache.
 CSS, calendar logic and favicon are embedded here. Fonts load from Google Fonts,
 with system-font fallbacks. The calendar range ends at the visitor's current date.
@@ -96,6 +97,14 @@ h1 em { font-weight: 400; color: var(--rose); }
 .bottom-note { font-family: var(--serif); font-style: italic; }
 .bottom-note > span { color: var(--rose); margin-left: 10px; }
 .status { padding: 60px 24px; text-align: center; color: var(--muted); line-height: 1.8; }
+.loading-heart { display: block; font-size: 48px; color: #c985a0; line-height: 1; }
+.loading-title { font: 26px var(--serif); margin: 18px 0; color: var(--ink); }
+.photo-progress { display: block; width: min(280px, 100%); height: 7px; margin: 0 auto; border: 0; border-radius: 10px; overflow: hidden; accent-color: var(--rose); background: var(--blush); }
+.photo-progress::-webkit-progress-bar { background: var(--blush); border-radius: 10px; }
+.photo-progress::-webkit-progress-value { background: var(--rose); border-radius: 10px; }
+.photo-progress::-moz-progress-bar { background: var(--rose); border-radius: 10px; }
+.loading-detail { font-size: 12px; margin: 14px 0 0; }
+.photo-load-notice { margin: 0; padding: 12px 24px; color: var(--muted); font-size: 12px; }
 .status.error { color: #a33860; }
 .status button { display: block; margin: 15px auto 0; padding: 10px 20px; border-radius: 6px; background: var(--blush); }
 .photo-button { display: block; padding: 0; background: #f2e1e9; width: 100%; position: relative; overflow: hidden; border-radius: 6px; }
@@ -202,8 +211,9 @@ dialog > p { font-size: 12px; color: var(--muted); }
         <div class="date-nav"><button class="icon-button" id="previous" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><h2 id="period-title">Our calendar</h2><button class="icon-button" id="next" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div>
       </div>
       <div id="status" class="status" role="status">Opening our little collection…</div>
-      <div id="month-view" hidden><div class="month-layout"><div class="calendar-area"><div class="weekday-row" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div id="calendar-grid" class="calendar-grid" aria-label="Days of the month"></div><div class="calendar-bottom"><span><i class="legend-dot"></i> A moment we kept</span><span>Pick a photo. Stay a little.</span></div></div></div></div>
+      <div id="month-view" hidden><div class="month-layout"><div class="calendar-area"><div class="weekday-row" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div id="calendar-months" aria-label="Days of the month"></div><div class="calendar-bottom"><span><i class="legend-dot"></i> A moment we kept</span><span>Pick a photo. Stay a little.</span></div></div></div></div>
       <div id="day-view" hidden></div>
+      <p id="photo-load-notice" class="photo-load-notice" role="status" hidden></p>
       <div class="journal-bottom"><span id="month-summary"></span><span class="bottom-note">Made of moments, kept with love. <span>♡</span></span></div>
     </section>
     <footer><span>GG CALANDER <span class="footer-heart">♡</span> OUR VERY OWN STORY</span><span id="footer-count">A calendar for two.</span></footer>
@@ -422,6 +432,11 @@ async function cachedPhotoSource(path) {
 }
 
 function setPhotoSource(img, path) {
+  if (readyPhotoSources.has(path)) {
+    photoAssignments.set(img, Symbol());
+    img.src = readyPhotoSources.get(path);
+    return;
+  }
   const assignment = Symbol();
   photoAssignments.set(img, assignment);
   cachedPhotoSource(path).then(source => {
@@ -487,11 +502,11 @@ function details(memory) {
   return fragment;
 }
 
-function renderMonth() {
-  const grid = $('calendar-grid');
-  grid.replaceChildren();
-  for (const date of monthDays(selected)) {
-    if (date.getMonth() !== selected.getMonth()) {
+function buildMonth(monthDate, tasks) {
+  const grid = element('div', 'calendar-grid');
+  grid.setAttribute('aria-label', monthFormat.format(monthDate));
+  for (const date of monthDays(monthDate)) {
+    if (date.getMonth() !== monthDate.getMonth()) {
       const spacer = element('div', 'calendar-spacer');
       spacer.setAttribute('aria-hidden', 'true');
       grid.append(spacer);
@@ -512,9 +527,9 @@ function renderMonth() {
     }
     if (memory) {
       const img = element('img');
-      setPhotoSource(img, memory.image);
       img.alt = memory.title;
-      img.loading = 'lazy';
+      img.loading = 'eager';
+      tasks.push(() => preparePhoto(img, memory, cell));
       img.decoding = 'async';
       img.addEventListener('error', () => cell.classList.add('image-failed'), { once: true });
       cell.append(img, element('span', 'cell-place', memory.place), element('span', 'cell-heart', '♡'));
@@ -523,6 +538,100 @@ function renderMonth() {
     if (memory && !cell.disabled) cell.addEventListener('click', () => chooseDate(date, 'day'));
     grid.append(cell);
   }
+  return grid;
+}
+
+// Keep month DOM nodes and their decoded images alive for the entire visit.
+const monthViews = new Map();
+const readyPhotoSources = new Map();
+
+function waitForPhoto(img) {
+  if (typeof img.decode === 'function') return img.decode();
+  return new Promise((resolve, reject) => {
+    if (img.complete) return img.naturalWidth ? resolve() : reject(new Error('Photo unavailable'));
+    img.addEventListener('load', resolve, { once: true });
+    img.addEventListener('error', reject, { once: true });
+  });
+}
+
+function withPhotoTimeout(promise) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error('Photo took too long to load')), 20000);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+async function preparePhoto(img, memory, cell) {
+  let active = true;
+  try {
+    await withPhotoTimeout((async () => {
+      const source = await cachedPhotoSource(memory.image);
+      if (!active) return;
+      img.src = source;
+      await waitForPhoto(img);
+      if (active) readyPhotoSources.set(memory.image, source);
+    })());
+    return true;
+  } catch {
+    active = false;
+    img.removeAttribute('src');
+    cell.classList.add('image-failed');
+    return false;
+  }
+}
+
+async function prepareAllMonths() {
+  monthViews.clear();
+  readyPhotoSources.clear();
+  $('calendar-months').replaceChildren();
+  const tasks = [];
+  const cursor = new Date(range.start);
+  cursor.setDate(1);
+  while (cursor <= range.end) {
+    const grid = buildMonth(new Date(cursor), tasks);
+    const key = dateKey(cursor).slice(0, 7);
+    grid.dataset.month = key;
+    grid.hidden = true;
+    monthViews.set(key, grid);
+    $('calendar-months').append(grid);
+    cursor.setMonth(cursor.getMonth() + 1);
+  }
+
+  const heart = element('span', 'loading-heart', '♡');
+  heart.setAttribute('aria-hidden', 'true');
+  const title = element('p', 'loading-title', 'Gathering our memories');
+  const progress = element('progress', 'photo-progress');
+  progress.max = tasks.length || 1;
+  progress.value = 0;
+  progress.setAttribute('aria-label', 'Photos prepared');
+  const detail = element('p', 'loading-detail');
+  $('status').replaceChildren(heart, title, progress, detail);
+  let completed = 0;
+  let failed = 0;
+  let next = 0;
+  const update = () => {
+    progress.value = completed;
+    detail.textContent = `${completed} of ${tasks.length} photos prepared${failed ? ` · ${failed} unavailable` : ''}`;
+  };
+  update();
+  // Limit simultaneous downloads/decodes without revealing unfinished months.
+  await Promise.all(Array.from({ length: Math.min(6, tasks.length) }, async () => {
+    while (next < tasks.length) {
+      const task = tasks[next++];
+      if (!await task()) failed++;
+      completed++;
+      update();
+    }
+  }));
+  const notice = $('photo-load-notice');
+  notice.hidden = failed === 0;
+  notice.textContent = failed ? `${failed} ${failed === 1 ? 'photo couldn’t' : 'photos couldn’t'} load. The rest of your calendar is ready. Refresh to try again.` : '';
+}
+
+function renderMonth() {
+  const key = dateKey(selected).slice(0, 7);
+  monthViews.forEach((grid, month) => { grid.hidden = month !== key; });
 }
 
 function renderDay() {
@@ -541,6 +650,37 @@ function renderDay() {
   day.append(layout);
 }
 
+// Animate existing views without rebuilding months or reloading their photos.
+let lastRenderedView = null;
+let viewAnimation = null;
+
+function animateViewChange() {
+  const current = { view, date: dateKey(selected) };
+  const previous = lastRenderedView;
+  lastRenderedView = current;
+  if (viewAnimation) {
+    viewAnimation.cancel();
+    viewAnimation = null;
+  }
+  if (!previous || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  const monthChanged = previous.date.slice(0, 7) !== current.date.slice(0, 7);
+  if (previous.view === current.view && (view === 'month' ? !monthChanged : previous.date === current.date)) return;
+  const target = view === 'month' ? monthViews.get(current.date.slice(0, 7)) : $('day-view');
+  if (!target || typeof target.animate !== 'function') return;
+  const enteringDay = view === 'day';
+  const direction = current.date > previous.date ? 1 : -1;
+  const transform = enteringDay
+    ? 'translateY(10px) scale(0.995)'
+    : previous.view === 'day' ? 'translateY(-6px)' : `translateX(${direction * 16}px)`;
+  viewAnimation = target.animate([
+    { opacity: 0.35, transform },
+    { opacity: 1, transform: 'translate(0, 0) scale(1)' }
+  ], {
+    duration: enteringDay ? 480 : 420,
+    easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)'
+  });
+}
+
 function render() {
   if (!ready) return;
   // Old links to empty days return to their month instead of an empty detail page.
@@ -557,10 +697,15 @@ function render() {
   const summary = $('month-summary');
   summary.replaceChildren(element('strong', '', `${count} ${count === 1 ? 'memory' : 'memories'}`), document.createTextNode(` tucked into ${new Intl.DateTimeFormat('en', { month: 'long' }).format(selected)}`));
   if (view === 'month') renderMonth(); else renderDay();
+  animateViewChange();
   setRoute();
 }
 
 async function load() {
+  ready = false;
+  $('month-view').hidden = true;
+  $('day-view').hidden = true;
+  $('photo-load-notice').hidden = true;
   $('status').hidden = false;
   $('status').className = 'status';
   $('status').textContent = 'Opening our little collection…';
@@ -576,6 +721,9 @@ async function load() {
     $('footer-count').textContent = `${data.memories.length} little ${data.memories.length === 1 ? 'memory' : 'memories'}. One shared story.`;
     if (!readRoute()) selected = new Date(today);
     selected = clampDate(selected, range);
+    await prepareAllMonths();
+    // Honor a date link changed while photos were being prepared.
+    readRoute();
     ready = true;
     $('status').hidden = true;
     document.querySelectorAll('.calendar-toolbar button').forEach(node => node.disabled = false);
