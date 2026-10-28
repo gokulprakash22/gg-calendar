@@ -5,6 +5,8 @@ GG Calander: static website, no build or backend required.
 Upload index.html, calander-data.json and images/ to your GitHub Pages root.
 Edit memories in calander-data.json; add photos to images/.
 Names, subtitle and the March 27, 2026 start date are set in this HTML file.
+Photos are cached in the browser after their first load. When replacing a photo,
+use a new filename or add ?v=2 to its image path in JSON to refresh the cache.
 CSS, calendar logic and favicon are embedded here. Fonts load from Google Fonts,
 with system-font fallbacks. The calendar range ends at the visitor's current date.
 Local preview: python3 -m http.server 4173, then visit http://localhost:4173/.
@@ -363,12 +365,98 @@ function chooseDate(date, nextView = view) {
   render();
 }
 
+// BEGIN PHOTO CACHE
+// Photos persist in this browser; a new filename or ?v=2 URL refreshes a photo.
+// Cache Storage works directly from the page, so no service worker file is needed.
+const photoSources = new Map();
+const photoObjectURLs = new Set();
+const photoAssignments = new WeakMap();
+let photoCachePromise;
+
+function openPhotoCache() {
+  if (!photoCachePromise) {
+    photoCachePromise = (async () => {
+      try {
+        if (typeof caches === 'undefined') return null;
+        const sitePath = new URL('.', document.baseURI).pathname;
+        return await caches.open(`gg-calander-photos-v1:${sitePath}`);
+      } catch {
+        // Private browsing or storage limits must not prevent photos displaying.
+        return null;
+      }
+    })();
+  }
+  return photoCachePromise;
+}
+
+async function cachedPhotoSource(path) {
+  const url = new URL(path, document.baseURI).href;
+  if (photoSources.has(url)) return photoSources.get(url);
+  const pending = (async () => {
+    const cache = await openPhotoCache();
+    let response;
+    if (cache) {
+      try { response = await cache.match(url); } catch { /* Use the network. */ }
+    }
+    if (!response) {
+      response = await fetch(url, { cache: 'force-cache', credentials: 'same-origin' });
+      if (!response.ok || !response.headers.get('content-type')?.toLowerCase().startsWith('image/')) {
+        throw new Error('Not a cacheable photo');
+      }
+      if (cache) {
+        try { await cache.put(url, response.clone()); } catch { /* Still display the photo if storage is full. */ }
+      }
+    }
+    const objectURL = URL.createObjectURL(await response.blob());
+    photoObjectURLs.add(objectURL);
+    return objectURL;
+  })();
+  photoSources.set(url, pending);
+  try {
+    return await pending;
+  } catch {
+    photoSources.delete(url);
+    // Remote hosts without CORS support can still display via a normal img URL.
+    return url;
+  }
+}
+
+function setPhotoSource(img, path) {
+  const assignment = Symbol();
+  photoAssignments.set(img, assignment);
+  cachedPhotoSource(path).then(source => {
+    // A previous request must not replace a more recently selected full photo.
+    if (photoAssignments.get(img) === assignment) img.src = source;
+  }).catch(() => {
+    if (photoAssignments.get(img) === assignment) img.src = path;
+  });
+}
+
+async function prunePhotoCache(items) {
+  try {
+    const cache = await openPhotoCache();
+    if (!cache) return;
+    const keep = new Set(items.map(item => new URL(item.image, document.baseURI).href));
+    const keys = await cache.keys();
+    await Promise.all(keys.filter(request => !keep.has(request.url)).map(request => cache.delete(request)));
+  } catch { /* Cache maintenance is optional. */ }
+}
+
+window.addEventListener('pagehide', event => {
+  if (!event.persisted) {
+    photoObjectURLs.forEach(url => URL.revokeObjectURL(url));
+    photoObjectURLs.clear();
+    photoSources.clear();
+  }
+});
+// END PHOTO CACHE
+
 function photo(memory, className = '') {
   const button = element('button', `photo-button ${className}`);
   button.type = 'button';
   button.setAttribute('aria-label', `Enlarge photo: ${memory.title}`);
   const img = element('img');
-  img.src = memory.image;
+  setPhotoSource(img, memory.image);
   img.alt = memory.title;
   img.decoding = 'async';
   img.addEventListener('error', () => {
@@ -377,7 +465,8 @@ function photo(memory, className = '') {
   }, { once: true });
   button.append(img);
   button.addEventListener('click', () => {
-    $('full-photo').src = memory.image;
+    $('full-photo').removeAttribute('src');
+    setPhotoSource($('full-photo'), memory.image);
     $('full-photo').alt = memory.title;
     $('full-caption').textContent = `${memory.title} · ${dateFormat.format(parseDate(memory.date))} · ${memory.place}`;
     $('photo-dialog').showModal();
@@ -423,7 +512,7 @@ function renderMonth() {
     }
     if (memory) {
       const img = element('img');
-      img.src = memory.image;
+      setPhotoSource(img, memory.image);
       img.alt = memory.title;
       img.loading = 'lazy';
       img.decoding = 'async';
@@ -483,6 +572,7 @@ async function load() {
     range = calendarRange(today);
     $('days-together-count').textContent = String(daysTogether(range.start, today));
     memories = new Map(data.memories.map(memory => [memory.date, memory]));
+    void prunePhotoCache(data.memories);
     $('footer-count').textContent = `${data.memories.length} little ${data.memories.length === 1 ? 'memory' : 'memories'}. One shared story.`;
     if (!readRoute()) selected = new Date(today);
     selected = clampDate(selected, range);
