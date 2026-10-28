@@ -3,254 +3,290 @@
     {
       "date": "2026-03-27",
       "image": "images/1-web.jpg",
-      "title": "The beginning of our little story",
+      "title": "Where Our Story Began",
       "place": "Anna Nagar - Home",
-      "notes": "A first page for all the days we want to remember."
+      "notes": "The first page of our story, and the start of so much to love.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-04-02",
       "image": "images/2-web.jpg",
-      "title": "First Date",
+      "title": "Our First Little Date",
       "place": "KC Food Street, Zudio",
-      "notes": "Our First Favourite Selfie."
+      "notes": "Our first date, our first favourite selfie, and a smile worth keeping.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-04-05",
       "image": "images/3-web.jpg",
-      "title": "Hand Washing Function",
+      "title": "Love Around the Table",
       "place": "Anna Nagar - Home",
-      "notes": "Lunch at home."
+      "notes": "Hand-washing function and lunch at home.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-04-09",
       "image": "images/4-web.jpg",
-      "title": "Something to brighten your day",
-      "place": "The flower market",
-      "notes": ""
+      "title": "Lunch and a Little Walk",
+      "place": "Bilal, WTC Park",
+      "notes": "Lunch at Bilal, then a walk through the streets. Simple plans, lovely company.",
+      "position": "50% 25%"
     },
     {
       "date": "2026-04-17",
       "image": "images/5-web.jpg",
-      "title": "A weekend by the water",
-      "place": "The seaside",
-      "notes": "We stayed until the sky changed colors."
+      "title": "A Walk, A Little Closer",
+      "place": "WTC Park",
+      "notes": "Long talks and little steps, getting to know each other a little more.",
+      "position": "50% 25%"
     },
     {
       "date": "2026-04-21",
       "image": "images/6-web.jpg",
-      "title": "Saturday, slowly",
-      "place": "Our kitchen",
-      "notes": "Breakfast ran well into lunchtime."
+      "title": "A Night Just for Us",
+      "place": "WTC Park",
+      "notes": "A little time together, a night full of sweet conversations.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-04-28",
       "image": "images/7-web.jpg",
-      "title": "Worth the early alarm",
-      "place": "The hilltop lookout",
-      "notes": "Packed a flask and watched the world wake up."
+      "title": "Our First Movie Together",
+      "place": "BSR Mall",
+      "notes": "Project Hail Mary, and the beginning of our movie dates.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-05-03",
       "image": "images/8-web.jpg",
-      "title": "Two months of little things",
-      "place": "By the lake",
-      "notes": "A picnic, a quiet afternoon, and nowhere to rush."
+      "title": "Planning Our Tomorrow",
+      "place": "Namma Veedu Vasanta Bhavan",
+      "notes": "Family time and a marriage hall visit. Our future felt a little closer.",
+      "position": "50% 25%"
     },
     {
       "date": "2026-05-11",
       "image": "images/9-web.jpg",
-      "title": "First I Love You",
+      "title": "Three Little Words",
       "place": "Video Call",
-      "notes": "3am"
+      "notes": "A 3 a.m. video call, when we first said those three little words.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-05-18",
       "image": "images/10-web.jpg",
-      "title": "Rainy day company",
-      "place": "Our usual café",
-      "notes": "Waiting out the rain with one more cup."
+      "title": "Choosing Our Special-Day Clothes",
+      "place": "T-Nagar",
+      "notes": "Shopping for our engagement, with our next chapter on our minds.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-05-21",
       "image": "images/11-web.jpg",
-      "title": "A small celebration",
-      "place": "Home, with you",
-      "notes": "Three months of filling ordinary days with good memories."
+      "title": "Before Our Big Day",
+      "place": "Pheonix Mall",
+      "notes": "A sweet little date before our engagement, just enjoying being us.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-05-28",
       "image": "images/12-web.jpg",
-      "title": "A little escape",
-      "place": "The coastal road",
-      "notes": "Windows down, our playlist on repeat."
+      "title": "One Step Closer to Forever",
+      "place": "Namma Veedu Vasanta Bhavan",
+      "notes": "Our engagement day. So much happiness in one beautiful step together.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-05-31",
       "image": "images/13-web.jpg",
-      "title": "An afternoon without a clock",
-      "place": "The lakeside",
-      "notes": "We forgot to check the time. That was the best part."
+      "title": "Blessings and Little Adventures",
+      "place": "Sri Santhana Srinivasa Perumal Temple, VR Mall (Time Zone)",
+      "notes": "Our first temple visit, then fun at Time Zone. A lovely day together.",
+      "position": "50% 25%"
     },
     {
       "date": "2026-06-04",
       "image": "images/14-web.jpg",
-      "title": "Just the two of us",
-      "place": "Our kitchen",
-      "notes": ""
+      "title": "More Steps, More Stories",
+      "place": "WTC Park",
+      "notes": "Another walk, another heart-to-heart. Always a little more for us to share.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-06-07",
       "image": "images/15-web.jpg",
-      "title": "Up in the clouds",
-      "place": "The mountain trail",
-      "notes": "A long walk and a view we will remember."
+      "title": "A Taste of Time Together",
+      "place": "Kuuraku, Nexus Vijaya Mall",
+      "notes": "Japanese lunch at Kuuraku, then shopping. A sweet day spent together.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-06-13",
       "image": "images/16-web.jpg",
-      "title": "A colorful kind of day",
-      "place": "The weekend market",
-      "notes": "Came for a walk. Left with flowers."
+      "title": "From the Movies to the Sea",
+      "place": "Ampa SkyOne, Light House, Marina Beach",
+      "notes": "Our second movie, Obsession, then the lighthouse and beach. A whole day to remember.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-06-17",
       "image": "images/17-web.jpg",
-      "title": "A quieter weekend",
-      "place": "The park",
-      "notes": "Nothing on the agenda except a little time together."
+      "title": "A Little Lunch, A Little Us",
+      "place": "WTC Park",
+      "notes": "Nothing planned but lunch and a little time together. That was enough.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-06-28",
       "image": "images/18-web.jpg",
-      "title": "A familiar table",
-      "place": "The corner café",
-      "notes": "Our usual order and a brand-new story."
+      "title": "Sweet Moments at Home",
+      "place": "Anna Nagar - Home",
+      "notes": "A simple home visit, full of little moments for us to keep.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-07-11",
       "image": "images/19-web.jpg",
-      "title": "The last light",
-      "place": "By the lake",
-      "notes": ""
+      "title": "A Few Precious Minutes",
+      "place": "Tirumangalam Metro",
+      "notes": "A quick metro catch-up, and the joy of baby Nithila’s arrival.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-07-19",
       "image": "images/20-web.jpg",
-      "title": "One more summer evening",
-      "place": "By the sea",
-      "notes": "A sample memory from last month. Replace these stories and photos with your own."
+      "title": "Shopping and Sweet Company",
+      "place": "Nexus Vijaya Mall",
+      "notes": "A shopping date made special by the time we spent together.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-07-23",
       "image": "images/21-web.jpg",
-      "title": "Our usual, please",
-      "place": "The corner café",
-      "notes": "Two coffees, one pastry, and absolutely nowhere we needed to be."
+      "title": "Thalapathy's Last Movie, First-Day Show",
+      "place": "Kumaran Theatre",
+      "notes": "Jananayagan on its first day, and our third movie date to remember.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-07-31",
       "image": "images/22-web.jpg",
-      "title": "The long way home",
-      "place": "Coastal road",
-      "notes": "We missed the turn. It turned out to be the best part of the day."
+      "title": "A Big Screen, A Sweet Date",
+      "place": "Pheonix Mall",
+      "notes": "The Odyssey in IMAX. Our fourth movie, another lovely day side by side.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-08-02",
       "image": "images/23-web.jpg",
-      "title": "A little lost, together",
-      "place": "The forest trail",
-      "notes": ""
+      "title": "A Little Name, A Lovely Day",
+      "place": "Tiruvallur - Home",
+      "notes": "Nithila’s naming ceremony and a driving lesson. A sweet mix of family and us.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-08-07",
       "image": "images/24-web.jpg",
-      "title": "Just because",
-      "place": "Sunday flower market",
-      "notes": "Flowers for no occasion. Those are my favorite kind."
+      "title": "Looking for Our Little Home",
+      "place": "Chennai",
+      "notes": "Riding around Chennai, looking for a place to call ours.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-08-09",
       "image": "images/25-web.jpg",
-      "title": "Spiderman",
-      "place": "Our kitchen",
-      "notes": "The rain could wait. So could everything else."
+      "title": "Another Movie, Another Memory",
+      "place": "VR Mall",
+      "notes": "Spider-Man: Brand New Day in PXL. Five movie dates, and more to come.",
+      "position": "50% 0%"
     },
     {
       "date": "2026-08-20",
       "image": "images/26-web.jpg",
-      "title": "Above the clouds",
-      "place": "Mountain lookout",
-      "notes": "A very early alarm. A very good idea."
+      "title": "A Quiet Kind of Happiness",
+      "place": "WTC Park",
+      "notes": "A calm little meetup. Just being together felt lovely.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-09-03",
       "image": "images/27-web.jpg",
-      "title": "Nowhere else to be",
-      "place": "Lake Como, Italy",
-      "notes": "We took the long way around the lake. Stopped for a coffee. Talked about everything and nothing.\n\nA little reminder that my favorite place is wherever you are."
+      "title": "Lunch with a Little Love",
+      "place": "BSR Mall",
+      "notes": "A good lunch and time together. A simple day made special by us.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-09-05",
       "image": "images/28-web.jpg",
-      "title": "An afternoon in green",
-      "place": "Our favorite park",
-      "notes": ""
+      "title": "A Day Full of Wonder",
+      "place": "Birla Planetorium",
+      "notes": "A whole day of fun at the planetarium, making happy memories together.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-09-09",
       "image": "images/29-web.jpg",
-      "title": "Salt in the air",
-      "place": "The seaside",
-      "notes": "One last look at the water before heading home."
+      "title": "A Day to Celebrate Love",
+      "place": "Vadapalani Murugan Temple",
+      "notes": "Together at the temple on Goku’s parents’ wedding anniversary. A lovely day to share.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-09-10",
       "image": "images/30-web.jpg",
-      "title": "The little things",
-      "place": "Home, with you",
-      "notes": "Nothing special on the calendar. Everything special about the day."
+      "title": "Just a Little More Time",
+      "place": "WTC Park",
+      "notes": "Nothing big, just our usual talks and the little moments we love.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-09-22",
       "image": "images/31-web.jpg",
-      "title": "Another day to keep",
-      "place": "Home, with you",
-      "notes": "A sample memory for today. Replace it with your own photo and story."
+      "title": "Goku’s Day, A Memory to Keep",
+      "place": "Anna Nagar Tower, Theevu Thidal",
+      "notes": "Birthday gifts, big feelings, and a day close to both our hearts.",
+      "position": "50% 40%"
     },
     {
       "date": "2026-09-24",
       "image": "images/32-web.jpg",
-      "title": "The little things",
-      "place": "Home, with you",
-      "notes": "Nothing special on the calendar. Everything special about the day."
+      "title": "Chips and Sweet Little Talks",
+      "place": "WTC Park",
+      "notes": "A few chips, a little chat, and another happy memory for us.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-09-25",
       "image": "images/33-web.jpg",
-      "title": "Another day to keep",
-      "place": "Home, with you",
-      "notes": "A sample memory for today. Replace it with your own photo and story."
+      "title": "A Prayer for Our Future",
+      "place": "Sri Maha Meru Dhyana Nilayam",
+      "notes": "At the temple, praying for our marriage and the life we will share.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-10-07",
       "image": "images/34-web.jpg",
-      "title": "Another day to keep",
-      "place": "Home, with you",
-      "notes": "A sample memory for today. Replace it with your own photo and story."
+      "title": "Happy Talks at Home",
+      "place": "Anna Nagar - Home",
+      "notes": "A home visit, fun conversations, and the simple joy of being together.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-10-12",
       "image": "images/35-web.jpg",
-      "title": "Another day to keep",
-      "place": "Home, with you",
-      "notes": "A sample memory for today. Replace it with your own photo and story."
+      "title": "Little Plans for Our Big Day",
+      "place": "Anna Nagar",
+      "notes": "Wedding shopping, then dinner at home. A little closer to our life together.",
+      "position": "50% 50%"
     },
     {
       "date": "2026-10-18",
       "image": "images/36-web.jpg",
-      "title": "Another day to keep",
-      "place": "Home, with you",
-      "notes": "A sample memory for today. Replace it with your own photo and story."
+      "title": "A Journey to Remember",
+      "place": "Kakkalur Lake",
+      "notes": "A train ride, an invitation for a friend, and a lake visit. Sweet little stops together.",
+      "position": "50% 50%"
     }
   ]
 }
